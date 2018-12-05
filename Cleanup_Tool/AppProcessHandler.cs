@@ -6,9 +6,9 @@ using System.IO;
 namespace Cleanup_Tool
 {
     class AppProcessHandler
-    {
+    {   //Public this method for reference
         public void ProcessChecker(string AppName, Action<string> action)
-        {
+        {   
             if(IsProcessExists(AppName))
             {
                 EndProcess(AppName, action);
@@ -18,7 +18,7 @@ namespace Cleanup_Tool
                 action("Didn't find the requested process");
             }
         }
-
+        //Kill Process with user inputed name
         private void EndProcess(string ProcessName, Action<string> action)
         {
             try
@@ -35,7 +35,7 @@ namespace Cleanup_Tool
                 action(e.Message);
             }
         }
-
+        //Check current process list to get process list
         private bool IsProcessExists(string TaskName)
         {
             Process[] ProcessPool = Process.GetProcessesByName(TaskName);

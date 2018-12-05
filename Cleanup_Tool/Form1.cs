@@ -21,14 +21,14 @@ namespace Cleanup_Tool
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {
+        {   //Check User check box status for future operation
             if (checkBox1.Checked && !checkBox2.Checked)
-            {
+            {   //Pop up warning message before starting
                 DialogResult dialogResult = MessageBox.Show("Want to wipe frostbite folders in C drive? ",
                     "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    string[] RootPath = { @"C:\test", @"C:\Dataset" };
+                    string[] RootPath = { @"C:\" };
 
                     try
                     {
@@ -53,10 +53,20 @@ namespace Cleanup_Tool
                     "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.Yes)
                 {
+                    string[] RootPath = { @"C:\" };
+                    try
+                    {
                         OutPut("Registry key checking....");
                         RegiKey = new RegistryProcesser();
-                        //RegiKey.CreateSubkey("Test", (string info) => { OutPut(info); });
-                        RegiKey.KeyChecker("Test", (string info) => { OutPut(info); });                                   
+                        RegiKey.KeyChecker("FrostEd", (string info) => { OutPut(info); });
+                        DirHandler = new DirProcesser();
+                        DirHandler.Process(RootPath, (string info) => { OutPut(info); });
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                        
                 }
                 else if(dialogResult == DialogResult.No)
                 {
@@ -69,8 +79,9 @@ namespace Cleanup_Tool
                     "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    AppProcessHandler TempIns = new AppProcessHandler();
-                    TempIns.ProcessChecker("frostbite", (string info) => { OutPut(info); });
+                    OutPut("Start cleanup process!");
+                    RegiKey = new RegistryProcesser();
+                    RegiKey.KeyChecker("FrostEd", (string info) => { OutPut(info); });
                 }
                 else if (dialogResult == DialogResult.No)
                 {
@@ -87,7 +98,7 @@ namespace Cleanup_Tool
                 OutPut("Error happened!");
             }
         }
-
+        //Create this method for info output operation
         public void OutPut(string log)
         {
             if (textBox1.GetLineFromCharIndex(textBox1.Text.Length)> 1000)

@@ -10,28 +10,29 @@ namespace Cleanup_Tool
 {
     class RegistryProcesser
     {
-        // Public this method for other class
+        // Public this method for reference
         public void KeyChecker(string KeyName, Action<string> action)
-        {
+        {   //Create process killing instance and shutdown related process
             AppProcessHandler ProcessStatus = new AppProcessHandler();
-            ProcessStatus.ProcessChecker("frosted", action);
+            ProcessStatus.ProcessChecker("FrostEd", action);
             ProcessStatus.ProcessChecker("Drone", action);
-
+            ProcessStatus.ProcessChecker("maya", action);
+            //Call Registry key process
             Win32bitProcesser(KeyName, action);
             Win64bitProcesser(KeyName, action);
         }
 
         private void Win32bitProcesser(string KeyName, Action<string> action)
-        {
+        {   //Didn't use Registry.LocalMachine to retrieve the key in localMachine, 
             RegistryKey View32 = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
-            RegistryKey BaskKey = View32.OpenSubKey(@"SOFTWARE", true);
+            RegistryKey BaskKey = View32.OpenSubKey(@"SOFTWARE", true); //Retrieve the key under localmachine\software and add write access
             var paths = BaskKey.GetSubKeyNames();
-            if (Array.Exists(paths, element => element.Contains(KeyName)))
+            if (Array.Exists(paths, element => element.Contains(KeyName)))//Add condiation for keyName of user input
             {
                 foreach (string path in paths)
                 {
                     if (path.ToString() == KeyName)
-                    {
+                    {   //If the key name is right then delete key
                         action(string.Format("Find key {0} in 32bit list...", path));
                         try
                         {
