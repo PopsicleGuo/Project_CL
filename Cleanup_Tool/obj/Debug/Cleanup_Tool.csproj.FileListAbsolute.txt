@@ -8,3 +8,13 @@ P:\Works\Scripts\C#\Cleanup_Tool\Cleanup_Tool\obj\Debug\Cleanup_Tool.csproj.Gene
 P:\Works\Scripts\C#\Cleanup_Tool\Cleanup_Tool\obj\Debug\Cleanup_Tool.csproj.CoreCompileInputs.cache
 P:\Works\Scripts\C#\Cleanup_Tool\Cleanup_Tool\obj\Debug\Cleanup_Tool.exe
 P:\Works\Scripts\C#\Cleanup_Tool\Cleanup_Tool\obj\Debug\Cleanup_Tool.pdb
+P:\Works\Scripts\Github\Project_CL\Project_CL\Cleanup_Tool\bin\Debug\Cleanup_Tool.exe.config
+P:\Works\Scripts\Github\Project_CL\Project_CL\Cleanup_Tool\bin\Debug\Cleanup_Tool.exe
+P:\Works\Scripts\Github\Project_CL\Project_CL\Cleanup_Tool\bin\Debug\Cleanup_Tool.pdb
+P:\Works\Scripts\Github\Project_CL\Project_CL\Cleanup_Tool\obj\Debug\Cleanup_Tool.csprojAssemblyReference.cache
+P:\Works\Scripts\Github\Project_CL\Project_CL\Cleanup_Tool\obj\Debug\Cleanup_Tool.Form1.resources
+P:\Works\Scripts\Github\Project_CL\Project_CL\Cleanup_Tool\obj\Debug\Cleanup_Tool.Properties.Resources.resources
+P:\Works\Scripts\Github\Project_CL\Project_CL\Cleanup_Tool\obj\Debug\Cleanup_Tool.csproj.GenerateResource.cache
+P:\Works\Scripts\Github\Project_CL\Project_CL\Cleanup_Tool\obj\Debug\Cleanup_Tool.csproj.CoreCompileInputs.cache
+P:\Works\Scripts\Github\Project_CL\Project_CL\Cleanup_Tool\obj\Debug\Cleanup_Tool.exe
+P:\Works\Scripts\Github\Project_CL\Project_CL\Cleanup_Tool\obj\Debug\Cleanup_Tool.pdb
