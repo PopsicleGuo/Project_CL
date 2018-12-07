@@ -14,6 +14,7 @@ namespace Cleanup_Tool
     {
         RegistryProcesser RegiKey;
         DirProcesser DirHandler;
+        ButtonController ButtonC = new ButtonController();
 
         public Form1()
         {
@@ -90,12 +91,7 @@ namespace Cleanup_Tool
             }
             else
             {
-                MessageBox.Show("Please select one option!", "Help Caption", MessageBoxButtons.OK,
-                                   MessageBoxIcon.Error,
-                                   MessageBoxDefaultButton.Button1,
-                                   0, "mspaint.chm",
-                                   HelpNavigator.KeywordIndex, "ovals");
-                OutPut("Error happened!");
+                ButtonC.NoneCheck(this);
             }
         }
         //Create this method for info output operation
