@@ -11,32 +11,30 @@ namespace Cleanup_Tool
     class RegistryProcesser
     {
         // Public this method for reference
-        public void KeyChecker(string KeyName, Action<string> action)
-        {   //Create process killing instance and shutdown related process
-            AppProcessHandler ProcessStatus = new AppProcessHandler();
-            ProcessStatus.ProcessChecker("FrostEd", action);
-            ProcessStatus.ProcessChecker("Drone", action);
-            ProcessStatus.ProcessChecker("maya", action);
-            //Call Registry key process
-            Win32bitProcesser(KeyName, action);
-            Win64bitProcesser(KeyName, action);
+        public void KeyChecker(string keyName, Action<string> action)
+        {   // Initialize the application process handler for process cleanup
+            new AppProcessHandler(action);
+            
+            // Call the function to remove those keys
+            Win32bitProcesser(keyName, action);
+            Win64bitProcesser(keyName, action);
         }
 
-        private void Win32bitProcesser(string KeyName, Action<string> action)
-        {   //Didn't use Registry.LocalMachine to retrieve the key in localMachine, 
-            RegistryKey View32 = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
-            RegistryKey BaskKey = View32.OpenSubKey(@"SOFTWARE", true); //Retrieve the key under localmachine\software and add write access
-            var paths = BaskKey.GetSubKeyNames();
-            if (Array.Exists(paths, element => element.Contains(KeyName)))//Add condiation for keyName of user input
+        private void Win32bitProcesser(string keyName, Action<string> action)
+        {   // the Registry.LocalMachine parameter will only get keys of WOW6432Node, if you open it
+            RegistryKey view32 = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
+            RegistryKey baseKey = view32.OpenSubKey(@"SOFTWARE", true); //Retrieve the key under localmachine\software and add write access
+            var paths = baseKey.GetSubKeyNames();
+            if (Array.Exists(paths, element => element.Contains(keyName))) // Add condiation for keyName of user input
             {
                 foreach (string path in paths)
                 {
-                    if (path.ToString() == KeyName)
-                    {   //If the key name is right then delete key
+                    if (path.ToString() == keyName)
+                    {   // If the key name is right then delete key
                         action(string.Format("Find key {0} in 32bit list...", path));
                         try
                         {
-                            BaskKey.DeleteSubKeyTree(path);
+                            baseKey.DeleteSubKeyTree(path);
                             action("Key has been deleted!");
                         }
                         catch (Exception)
@@ -52,21 +50,22 @@ namespace Cleanup_Tool
             }
         }
 
-        private void Win64bitProcesser(string KeyName, Action<string> action)
+        // Almost same constrution of code block
+        private void Win64bitProcesser(string keyName, Action<string> action)
         {
-            RegistryKey View64 = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
-            RegistryKey BaskKey = View64.OpenSubKey(@"SOFTWARE", true);
-            string[] paths = BaskKey.GetSubKeyNames();
-            if (Array.Exists(paths, element => element.Contains(KeyName)))
+            RegistryKey view64 = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
+            RegistryKey baseKey = view64.OpenSubKey(@"SOFTWARE", true);
+            string[] paths = baseKey.GetSubKeyNames();
+            if (Array.Exists(paths, element => element.Contains(keyName)))
             {
                 foreach (string path in paths)
                 {
-                    if (path.Contains(KeyName))
+                    if (path.Contains(keyName))
                     {
                         action(string.Format("Find key {0} in 64bit list...", path));
                         try
                         {
-                            BaskKey.DeleteSubKeyTree(path);
+                            baseKey.DeleteSubKeyTree(path);
                             action("Key has been deleted!");
                         }
                         catch (Exception)
@@ -83,14 +82,14 @@ namespace Cleanup_Tool
         }
 
         // Test method!!!
-        public void CreateSubkey(string KeyName, Action<string> action)
+        public void CreateSubkey(string keyName, Action<string> action)
         {
             try
             {
-                RegistryKey Win32bitKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
-                Win32bitKey.CreateSubKey(KeyName);
-                RegistryKey Win64bitKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
-                Win64bitKey.CreateSubKey(KeyName);
+                RegistryKey win32bitKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32);
+                win32bitKey.CreateSubKey(keyName);
+                RegistryKey win64bitKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64);
+                win64bitKey.CreateSubKey(keyName);
 
                 action("The keys have been created!");
             }

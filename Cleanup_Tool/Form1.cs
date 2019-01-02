@@ -29,13 +29,13 @@ namespace Cleanup_Tool
                     "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    string[] RootPath = { @"C:\" };
+                    string[] rootPath = { @"C:\" };
 
                     try
                     {
                         OutPut("Folder checking....");
                         DirHandler = new DirProcesser();
-                        DirHandler.Process(RootPath, (string info) => { OutPut(info); });
+                        DirHandler.Process(rootPath, (string info) => { OutPut(info); });
                         //DirHandler.DirMoveProcesser((string info) => { OutPut(info); });
                     }
                     catch (Exception)
@@ -54,14 +54,14 @@ namespace Cleanup_Tool
                     "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    string[] RootPath = { @"C:\" };
+                    string[] rootPath = { @"C:\" };
                     try
                     {
                         OutPut("Registry key checking....");
                         RegiKey = new RegistryProcesser();
                         RegiKey.KeyChecker("FrostEd", (string info) => { OutPut(info); });
                         DirHandler = new DirProcesser();
-                        DirHandler.Process(RootPath, (string info) => { OutPut(info); });
+                        DirHandler.Process(rootPath, (string info) => { OutPut(info); });
                     }
                     catch (Exception)
                     {
