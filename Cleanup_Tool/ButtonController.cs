@@ -19,7 +19,7 @@ namespace Cleanup_Tool
                     "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
-                info.OutPut("Start cleanup process!", form);
+                info.OutPut("Start cleanup process!");
                 RegiKey = new RegistryProcesser();
                 RegiKey.KeyChecker("FrostEd", (string text) => { form.OutPut(text); });
             }
@@ -29,15 +29,14 @@ namespace Cleanup_Tool
             }
         }
 
-        public void NoneCheck(Form1 form)
+        public void NoneCheck()
         {
             MessageBox.Show("Please select one option!", "Help Caption", MessageBoxButtons.OK,
                                    MessageBoxIcon.Error,
                                    MessageBoxDefaultButton.Button1,
                                    0, "mspaint.chm",
                                    HelpNavigator.KeywordIndex, "ovals");
-
-            info.OutPut("Error Happened!! ", form);
+            info.OutPut("Error Happened!! ");
         }
     }
 }

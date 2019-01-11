@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace Cleanup_Tool
@@ -11,16 +8,17 @@ namespace Cleanup_Tool
     {   //Put the query result into this static list
         public static List<string> dirPool = new List<string>();
 
-        public void Process(string[] rootPaths, Action<string> action)
+        public DirProcesser(Action<string> action)
         {   // Initialize the application process handler for process cleanup 
-            new AppProcessHandler(action);
+            new AppProcessHandler();
+
+            string[] rootPaths = { @"C:\" };
 
             // Check the player's input folder array
             foreach (string value in rootPaths)
             {
                 DoProcess(value, action);               
             }
-
         }
 
         private void DoProcess(string processPath, Action<string> action)
@@ -35,7 +33,7 @@ namespace Cleanup_Tool
                     {
                         continue;
                     }
-                    else if (IsFrostbiteFolder(processPath))
+                    else if (IsTargetFolder(new FileInfo(processPath)))
                     {   //If the contdiation is true then put suitble folder name with path into static list
                         action(string.Format("Find Folder {0}", processPath));
                         dirPool.Add(processPath);
@@ -66,11 +64,18 @@ namespace Cleanup_Tool
             return false;
         }
 
-        private bool IsFrostbiteFolder(string path)
+        private bool IsTargetFolder(FileInfo path)
         {
             // Check the folder name is belong to condiation
-            FileInfo dirName = new FileInfo(path);
-            if (dirName.Name.Equals("FrostEd"))
+             if (path.Name.Equals("FrostEd"))
+            {
+                return true;
+            }
+            else if(path.Name.Contains("arttools"))
+            {
+                return true;
+            }
+             else if(path.Name.Equals("maya"))
             {
                 return true;
             }

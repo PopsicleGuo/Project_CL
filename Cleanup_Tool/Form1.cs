@@ -13,7 +13,7 @@ namespace Cleanup_Tool
     public partial class Form1 : Form
     {
         RegistryProcesser RegiKey;
-        DirProcesser DirHandler;
+        //DirProcesser DirHandler;
         ButtonController ButtonC = new ButtonController();
 
         public Form1()
@@ -29,14 +29,10 @@ namespace Cleanup_Tool
                     "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    string[] rootPath = { @"C:\" };
-
                     try
                     {
                         OutPut("Folder checking....");
-                        DirHandler = new DirProcesser();
-                        DirHandler.Process(rootPath, (string info) => { OutPut(info); });
-                        //DirHandler.DirMoveProcesser((string info) => { OutPut(info); });
+                        new DirProcesser((string info) => { OutPut(info); });
                     }
                     catch (Exception)
                     {
@@ -54,14 +50,12 @@ namespace Cleanup_Tool
                     "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    string[] rootPath = { @"C:\" };
                     try
                     {
                         OutPut("Registry key checking....");
                         RegiKey = new RegistryProcesser();
                         RegiKey.KeyChecker("FrostEd", (string info) => { OutPut(info); });
-                        DirHandler = new DirProcesser();
-                        DirHandler.Process(rootPath, (string info) => { OutPut(info); });
+                        new DirProcesser((string info) => { OutPut(info); });
                     }
                     catch (Exception)
                     {
@@ -91,7 +85,23 @@ namespace Cleanup_Tool
             }
             else
             {
-                ButtonC.NoneCheck(this);
+                ButtonC.NoneCheck();
+            }
+
+            if (checkBox3.Checked)
+            {
+                DialogResult dialogResult = MessageBox.Show("Do you want to clean Warlus realted environment!! ",
+                    "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    //new WarlusProcesser((string info) => { OutPut(info); });
+                    new WarlusProcesser();
+
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    return;
+                }
             }
         }
         //Create this method for info output operation

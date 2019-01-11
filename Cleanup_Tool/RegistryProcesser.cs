@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Win32;
 
 
@@ -13,7 +9,7 @@ namespace Cleanup_Tool
         // Public this method for reference
         public void KeyChecker(string keyName, Action<string> action)
         {   // Initialize the application process handler for process cleanup
-            new AppProcessHandler(action);
+            new AppProcessHandler();
             
             // Call the function to remove those keys
             Win32bitProcesser(keyName, action);
